@@ -1,7 +1,9 @@
 import sys
+import os
 agenda = {
     "fecha": "",
     "tarea": "",
+    "asignatura": "",
     "prioridad": "",
 }
 listaAgenda = []
@@ -10,40 +12,34 @@ def añadirFecha(agenda,fecha):
     agenda["fecha"] = fecha
 def añadirTarea(agenda,tarea):
     agenda["tarea"] = tarea
+def añadirAsignatura(agenda,asignatura):
+    agenda["asignatura"] = asignatura
 def añadirPrioridad(agenda,prioridad):
     agenda["prioridad"] = prioridad
-def añadirAgenda(fecha,tarea,prioridad):
+def añadirAgenda(fecha,tarea,asignatura,prioridad):
     agenda_copia = agenda.copy()
-    añadirFecha(fecha)
-    añadirTarea(tarea)
-    añadirPrioridad(prioridad)
+    añadirFecha(agenda_copia, fecha)
+    añadirTarea(agenda_copia, tarea)
+    añadirAsignatura(agenda_copia,asignatura)
+    añadirPrioridad(agenda_copia, prioridad)
     listaAgenda.append(agenda_copia)
-def borrarFecha(listaAgenda,fecha):
-    for i in listaAgenda:
-        if i["fecha"] == fecha:
-            listaAgenda.remove(i)
-def borrarTarea(listaAgenda,tarea):
+def borrarTarea(tarea):
     for i in listaAgenda:
         if i["tarea"] == tarea:
             listaAgenda.remove(i)
-def borrarPrioridad(listaAgenda,prioridad):
-    for i in listaAgenda:
-        if i["prioridad"] == prioridad:
-            listaAgenda.remove(i)
-def borrarAgenda(fecha,tarea,prioridad):
-    borrarFecha(fecha)
-    borrarTarea(tarea)
-    borrarPrioridad(prioridad)
-    agenda.append(listaAgenda)
-def buscarFecha(listaAgenda,fecha):
+def buscarFecha(fecha):
     for i in listaAgenda:
         if i["fecha"] == fecha:
             print(i)
-def buscarTarea(listaAgenda,tarea):
+def buscarTarea(tarea):
     for i in listaAgenda:
         if i["tarea"] == tarea:
             print(i)
-def buscarPrioridad(listaAgenda,prioridad):
+def buscarAsignatura(asignatura):
+    for i in listaAgenda:
+        if i["asignatura"] == asignatura:
+            print(i)
+def buscarPrioridad(prioridad):
     for i in listaAgenda:
         if i["prioridad"] == prioridad:
             print(i)
@@ -53,22 +49,56 @@ if __name__ in "__main__":
         print("<------------------------->")
         print("1.Añadir Agenda:")
         print("2.Borrar Agenda: ")
-        print("3.Buscar Fecha: ")
-        print("4.Buscar Tarea: ")
-        print("5.Buscar Prioridad: ")
-        print("6.Salir")
+        print("3.Buscar Agenda: ")
+        print("4.Ver Agenda: ")
+        print("5.Salir")
         print("<------------------------->")
         menu = input("¿Que opción quieres?: ")
         match menu:
             case "1":
-                añadirAgenda(fecha = input("¿Que fecha quires poner?: "), tarea = input("¿Que tarea quieres poner?: "), prioridad = input("¿Que prioridad quieres poner?: "))
+                fecha = input("¿Que fecha quieres poner?: ")
+                tarea = input("¿Que tarea quires añadir?: ")
+                asignatura = input("¿A que asignatura pertenece?: ")
+                prioridad = input("¿Que prioridad tiene?: ")
+                añadirAgenda(fecha, tarea, asignatura, prioridad)
+                os.system("cls")
             case "2":
-                borrarAgenda(fecha = input("¿Que fecha quires borrar?: "), tarea = input("¿Que tarea quieres borrar?: "), prioridad = input("¿Que prioridad quieres borrar?: "))
+                tarea = input("¿Que tarea quieres borrar: ?")
+                borrarTarea(tarea)
+                os.system("cls")
             case "3":
-                buscarFecha(fecha = input("¿Que fecha quieres buscar?: "))
+                os.system("cls")
+                print("<------------------------->")
+                print("1.Buscar por Fecha:")
+                print("2.Buscar por Tarea: ")
+                print("3.Buscar por Asignatura: ")
+                print("4.Buscar por Prioridad: ")
+                print("5.Retroceder: ")
+                print("<------------------------->")
+                buscar = input("¿Que opción quieres?: ")
+                match buscar:
+                    case "1":
+                        buscarFecha(fecha = input("¿Que fecha quieres buscar?: "))
+                        os.system("Pause")
+                        os.system("cls")
+                    case "2":
+                        buscarTarea(tarea = input("¿Que tarea quires buscar?: "))
+                        os.system("Pause")
+                        os.system("cls")
+                    case "3":
+                        buscarAsignatura(asignatura = input("¿Que asignatura quires buscar?: "))
+                        os.system("Pause")
+                        os.system("cls")
+                    case "4":
+                        buscarPrioridad(prioridad = input("¿Por que porioridad qiueres buscar?: "))
+                        os.system("Pause")
+                        os.system("cls")
+                    case "5":
+                        os.system("cls")
             case "4":
-                buscarTarea(tarea = input("¿Que tarea quires buscar?: "))
+                print(listaAgenda)
+                os.system("Pause")
+                os.system("cls")
             case "5":
-                buscarPrioridad(prioridad = input("¿Por que porioridad qiueres buscar?: "))
-            case "6":
+                os.system("cls")
                 sys.exit()
