@@ -1,23 +1,21 @@
 class Personaje:
     
-    def __init__(self, nombre, vida, fuerza, defensa, mana, debilidad, proyectil):
+    def __init__(self, nombre, vida, fuerza, defensa, mana, debilidad, arma):
         self.nombre = nombre
         self.vida = vida
         self.fuerza = fuerza
         self.defensa = defensa
         self.mana = mana
         self.debilidad = debilidad
-        self.proyectil = proyectil
+        self.arma = arma
     
     def interaccion(self, talk, swap, fight):
         self.talk = talk
         self.swap = swap
         self.fight = fight
     
-    def atacar(self, personaje, enemigo):
-        self.personaje = personaje
-        self.enemigo = enemigo
-        print(f'{self.personaje + " ataca a " + self.enemigo}')
+    def atacar(self, enemigo):
+        print(f'{self.nombre + " ataca a " + enemigo.nombre}')
     
     def hablar(self, saludar, insultar):
         self.saludar = saludar
@@ -28,13 +26,7 @@ class Personaje:
 class Guerrero(Personaje):
     
     def __init__(self):
-        self.nombre = "Guerrero"
-        self.vida = 20
-        self.fuerza = 40
-        self.defensa = 30
-        self.mana = 0
-        self.debilidad = "Rayo", "Proyectil"
-        self.proyectil = "Espada"
+        super().__init__("Guerrero", 20, 40, 30, 0, ["Rayo", "Proyectil"], "Espada")
     
     def habilidades(self, estocada, tajo, puñalada):
         self.estocada = estocada

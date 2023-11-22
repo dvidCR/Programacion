@@ -2,18 +2,17 @@ from abc import ABC, abstractmethod
 
 class Unidad(ABC):
     
-    @abstractmethod
-    
     def __init__(self, tipo, vida):
         self.tipo = tipo
         self.vida = vida
-        
-    def mover(self, movimiento):
-        self.movimiento = movimiento
     
-    def atacar(self, daño, rango):
-        self.daño = daño
-        self.rango = rango
+    @abstractmethod    
+    def mover(self):
+        pass
+    
+    @abstractmethod
+    def atacar(self):
+        pass
         
 class Infanteria(Unidad):
     
@@ -26,7 +25,7 @@ class Infanteria(Unidad):
         self.rango = 1
         
     def daño(self):
-        self.daño = 10
+        self.atacar = 10
 
 class Caballería(Unidad):
     
@@ -39,7 +38,7 @@ class Caballería(Unidad):
         self.rango = 5
         
     def daño(self):
-        self.daño = 8
+        self.atacar = 8
         
 class Arquero(Unidad):
     
@@ -51,5 +50,5 @@ class Arquero(Unidad):
         self.movimiento = 10
         
     def daño(self):
-        self.daño = 25
+        self.atacar = 25
         self.rango = 40
