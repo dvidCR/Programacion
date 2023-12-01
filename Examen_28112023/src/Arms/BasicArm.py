@@ -10,4 +10,6 @@ class BasicArm:
         self.x += self.velocity
 
     def draw(self, screen):
-        pygame.draw.rect(screen, (255, 255, 255), (self.x, self.y, 5, 2))  # Dibuja una bala pequeña
+        #if disparo == "mago":
+            pygame.draw.rect(screen, (128, 0, 128), (self.x, self.y, 15, 2)),
+        

@@ -1,7 +1,7 @@
 import pygame
 from Arms.BasicArm import BasicArm
 
-class Character ():
+class Character (pygame.sprite.Sprite):
     
     '''
     Tiene que tener unas coordenadas de inicio
@@ -11,19 +11,23 @@ class Character ():
     
     '''
     
-    def __init__(self,screen, x=30, y=30, Wix=30,Wiy=30, Wax=50,Way=50, posxM=750, posyM=10, posxF=700, posyF=10 ,direction='right', velocity = 10):
+    def __init__(self,screen, x=30, y=30, WizardX=30,WizardY=30, Wax=50,Way=50, barraMX=750, barraMY=10, barraFX=700, barraFY=10 ,direction='right', velocity = 10):
+        self.__init__()
+        self.image = pygame.Surface([10, 20])
+        self.image.fill('red')
+        self.rect = pygame.image.get_rect()
+
         self.screen = screen
         self.x = x
         self.y = y
-        self.Wix = Wix
-        self.Wiy = Wiy
+        self.WizardX = WizardX
+        self.WizardY = WizardY
         self.Wax = Wax
         self.Way = Way
-        self.posxM = posxM
-        self.posyM = posyM
-        self.posxF = posxF
-        self.posyF = posyF
-        self.sinMana = "Te has quedado sin mana"
+        self.barraMX = barraMX
+        self.barraMY = barraMY
+        self.barraFX = barraFX
+        self.barraFY = barraFY
         self.width = 10
         self.height = 20
         self.direction = direction
@@ -45,13 +49,13 @@ class Character ():
 
         # Mover el mago
         if keys[pygame.K_LEFT]:
-            self.Wix -= self.velocity
+            self.WizardX -= self.velocity
         if keys[pygame.K_RIGHT]:
-            self.Wix += self.velocity
+            self.WizardX += self.velocity
         if keys[pygame.K_UP]:
-            self.Wiy -= self.velocity
+            self.WizardY -= self.velocity
         if keys[pygame.K_DOWN]:
-            self.Wiy += self.velocity
+            self.WizardY += self.velocity
         
         # Mover el guerrero
         if keys[pygame.K_a]:
@@ -75,8 +79,8 @@ class Character ():
         #TODO: configurar height and with
         #self.x = max(0, min(self.x, 10 - 5))
         #self.y = max(0, min(self.y, 20 - 5))
-        #print (self.Wix)
-        #print (self.Wiy)
+        #print (self.WizardX)
+        #print (self.WizardY)
         #print (self.Wax)
         #print (self.Way)
         # draw the new position

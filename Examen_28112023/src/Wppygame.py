@@ -1,5 +1,6 @@
 import pygame, sys
 from Maps.Map import Map
+from Characters.BasicCharacter import BasicCharacter
 from Characters.Wizard import Wizard
 from Characters.Warrior import Warrior
 
@@ -27,9 +28,10 @@ class Wppygame:
         pygame.display.set_caption (self.caption)
         
         game_map = Map('./src/Maps/tiles.png', './src/Maps/map.txt', 16)            
-        game_map.draw(self.SCREEN)  
+        game_map.draw(self.SCREEN)
+        Personaje = BasicCharacter()  
         Mago = Wizard(self.SCREEN)
-        Guerrero = Warrior(self.SCREEN)
+        #Guerrero = Warrior(self.SCREEN)
         running = True
         
         while running:            
@@ -40,12 +42,14 @@ class Wppygame:
                 if event.type == pygame.QUIT:
                     running = False 
             
-            Mago.character()
-            Guerrero.character()
-            Mago.magia()
-            Guerrero.barra()
-            Mago.movements()
-            Guerrero.movements()
+                  
+                    
+            #Mago.character()
+            #Guerrero.character()
+            #Mago.magia()
+            #Guerrero.barra()
+            #Mago.movements()
+            #Guerrero.movements()
                    
             pygame.display.update()
             game_map.draw(self.SCREEN) 

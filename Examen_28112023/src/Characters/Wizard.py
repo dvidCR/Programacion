@@ -1,12 +1,16 @@
-from Characters.Character import Character
+from Characters.BasicCharacter import BasicCharacter
 from Arms.BasicArm import BasicArm
 import pygame
 
-class Wizard(Character):
+class Wizard(BasicCharacter):
     
-    def __init__(self, screen, x=30, y=30, Wix=30, Wiy=30, Wax=50, Way=50, posxM=750, posyM=10, posxF=700, posyF=10, direction='right', velocity=10):
-        super().__init__(screen, x, y, Wix, Wiy, Wax, Way, posxM, posyM, posxF, posyF, direction, velocity)
-    
+    def __init__(self):
+        super().__init__()
+        
+        self.WizardX = 30
+        self.WizardY = 30
+        self.barraMX = 750
+        self.barraMY = 10
         self.mana = 40
     
     def movements(self):
@@ -14,16 +18,16 @@ class Wizard(Character):
         
         if keys[pygame.K_RSHIFT]:
             if self.mana > 0:
-                self.bullets.append(BasicArm(self.Wix + self.width // 2, self.Wiy, 80))
+                self.bullets.append(BasicArm(self.WizardX + self.width // 2, self.WizardY, 80))
                 self.mana-=1
-                self.posxM+=1
+                self.barraMX+=1
         elif self.mana < 40:
             self.mana+=1
-            self.posxM-=1
-        return super().movements()
+            self.barraMX-=1
+        return super().update()
         
     def character(self):
-        pygame.draw.rect(self.screen, self.colorWi, pygame.Rect(self.Wix, self.Wiy, 10, 20))
+        BasicCharacter(pygame.draw.rect(self.screen, self.colorWi, pygame.Rect(self.WizardX, self.WizardY, 10, 20)))
      
     def magia(self):
-        pygame.draw.rect(self.screen, self.colorM, pygame.Rect(self.posxM, self.posyM, self.mana, 20))
+        pygame.draw.rect(self.screen, self.colorM, pygame.Rect(self.barraMX, self.barraMY, self.mana, 20))
