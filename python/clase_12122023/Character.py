@@ -137,6 +137,10 @@ class AnimationCharacter (pygame.sprite.Sprite):
 
         cuadrotexto = pygame.Rect(x,y,width,height)
         pygame.draw.rect(self.screen,'white', cuadrotexto)
+        
+        font = pygame.font.SysFont("Arial", 30)
+        text = font.render(("Hello World!", (0, 0, 0)))
+        screen.blit(text, 40,30)
     
     # dentro del recuadro tengo que mostrar texto
     # ?????
