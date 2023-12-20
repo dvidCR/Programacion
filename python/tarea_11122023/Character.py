@@ -63,79 +63,99 @@ class AnimationCharacter (pygame.sprite.Sprite):
     
     def __init__(self, filename, rows, cols, velocity = 10):
         super().__init__()
-        self.spreatSheet = SpreatSheets(filename, rows, cols)
+        self.character1 = SpreatSheets(filename, rows, cols)
+        self.character2 = SpreatSheets(filename, rows, cols)
         
         #estas son las listas donde guardamos cada uan de las imágenes dependiendo
         #del movimiento que realiza
-        self.animationUP = self.spreatSheet.getAnimationUP()
-        self.animationDOWN = self.spreatSheet.getAnimationDOWN()
-        self.animationLEFT = self.spreatSheet.getAnimationLEFT()
-        self.animationRIGHT = self.spreatSheet.getAnimationRIGHT()
+        self.animationUP1 = self.character1.getAnimationUP()
+        self.animationDOWN1 = self.character1.getAnimationDOWN()
+        self.animationLEFT1 = self.character1.getAnimationLEFT()
+        self.animationRIGHT1 = self.character1.getAnimationRIGHT()
+        
+        self.animationUP2 = self.character2.getAnimationUP()
+        self.animationDOWN2 = self.character2.getAnimationDOWN()
+        self.animationLEFT2 = self.character2.getAnimationLEFT()
+        self.animationRIGHT2 = self.character2.getAnimationRIGHT()
         
         self.velocity = velocity
         
         #obligatorio ponemos una dirección por defecto
-        self.direction = "RIGHT"
-        self.image = self.animationRIGHT[0]
+        self.direction1 = "RIGHT"
+        self.direction2 = "LEFT"
+        self.image1 = self.animationRIGHT1[0]
+        self.image2 = self.animationLEFT2[0]
         
         #En mi imagen he necesitado hacerla más pequeña
-        self.image = pygame.transform.scale(self.image, (30,30))
+        self.image1 = pygame.transform.scale(self.image1, (30,30))
+        self.image2 = pygame.transform.scale(self.image2, (30,30))
         
-        self.rect = self.image.get_rect()
+        self.rect1 = self.image1.get_rect()
+        self.rect2 = self.image2.get_rect()
         
         # Lo situo en el centro de la pantalla al personaje
-        self.rect.center = (800 // 2, 600 // 2) 
+        self.rect1.center = (800 // 2, 600 // 2) 
+        self.rect2.center = (800 // 2, 500 // 2) 
         self.index = 0
     
-    def update (self, pj):
+    def update (self):
         
         if self.index >= 3:
             self.index = 0
         print (self.index)
         
         if self.direction == "RIGHT":
-            self.image = self.animationRIGHT[self.index]
+            self.image1 = self.animationRIGHT1[self.index]
         if self.direction == "LEFT":
-            self.image = self.animationLEFT[self.index]
+            self.image1 = self.animationLEFT1[self.index]
         if self.direction == "UP":
-            self.image = self.animationUP[self.index]
+            self.image1 = self.animationUP1[self.index]
         if self.direction == "DOWN":
-            self.image = self.animationDOWN[self.index]
+            self.image1 = self.animationDOWN1[self.index]
+            
+        if self.direction == "RIGHT":
+            self.image2 = self.animationRIGHT1[self.index]
+        if self.direction == "LEFT":
+            self.image2 = self.animationLEFT1[self.index]
+        if self.direction == "UP":
+            self.image2 = self.animationUP1[self.index]
+        if self.direction == "DOWN":
+            self.image2 = self.animationDOWN1[self.index]
             
             
-        self.image = pygame.transform.scale(self.image, (30,30))
+        self.image1 = pygame.transform.scale(self.image1, (30,30))
+        self.image2 = pygame.transform.scale(self.image2, (30,30))
         self.index += 1
         
          # Obtener teclas presionadas
         keys = pygame.key.get_pressed()
 
         # Mover el rectángulo
-        if pj == 1:
-            if keys[pygame.K_LEFT]:
-                self.rect.x -= self.velocity
-                self.direction = "LEFT"
-            if keys[pygame.K_RIGHT]:
-                self.rect.x += self.velocity
-                self.direction = "RIGHT"
-            if keys[pygame.K_UP]:
-                self.rect.y-= self.velocity
-                self.direction = "UP"
-            if keys[pygame.K_DOWN]:
-                self.rect.y+= self.velocity
-                self.direction = "DOWN"
-        if pj == 2:
-            if keys[pygame.K_a]:
-                self.rect.x -= self.velocity
-                self.direction = "LEFT"
-            if keys[pygame.K_d]:
-                self.rect.x += self.velocity
-                self.direction = "RIGHT"
-            if keys[pygame.K_w]:
-                self.rect.y-= self.velocity
-                self.direction = "UP"
-            if keys[pygame.K_s]:
-                self.rect.y+= self.velocity
-                self.direction = "DOWN"
+        if keys[pygame.K_LEFT]:
+            self.rect1.x -= self.velocity
+            self.direction = "LEFT"
+        if keys[pygame.K_RIGHT]:
+            self.rect1.x += self.velocity
+            self.direction = "RIGHT"
+        if keys[pygame.K_UP]:
+            self.rect1.y-= self.velocity
+            self.direction = "UP"
+        if keys[pygame.K_DOWN]:
+            self.rect1.y+= self.velocity
+            self.direction = "DOWN"
+            
+        if keys[pygame.K_a]:
+            self.rect2.x -= self.velocity
+            self.direction = "LEFT"
+        if keys[pygame.K_d]:
+            self.rect2.x += self.velocity
+            self.direction = "RIGHT"
+        if keys[pygame.K_w]:
+            self.rect2.y-= self.velocity
+            self.direction = "UP"
+        if keys[pygame.K_s]:
+            self.rect2.y+= self.velocity
+            self.direction = "DOWN"
     
  
  ############################### La parte que crea la pantalla y añade los personajes ##############
@@ -150,9 +170,7 @@ fpsClock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
 #personaje le paso la imagen y las filas y columnas del sprite. en una sola imagen
 personaje =  AnimationCharacter('./exampleSheet.png',4,4)
-personaje2 =  AnimationCharacter('./exampleSheet.png',4,4)
 all_sprites.add(personaje)
-all_sprites.add(personaje2)
 
 running = True
 
