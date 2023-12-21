@@ -64,6 +64,8 @@ c = Banco()
 
 print(c)
 
+#c.setCantidad = 50
+#print(c.getCantidad)
 #c.setTitular = "David"
 #c.setCantidad = 50
 #print(c.getCantidad)
