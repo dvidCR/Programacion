@@ -12,11 +12,10 @@ class Banco:
         self.__titular = titular
         self.__cantidad = cantidad
         
-    def comprobarTitular(self):
-        if self.__cantidad >= 0:
-            if self.__titular == None:
-                print("Para poder manejar el dinero de tu cuenta antes tiene que haber un titular")
-                return False
+    def __comprobarTitular(self):
+        if self.__cantidad >= 0 and self.__titular == None:
+            print("Para poder manejar el dinero de tu cuenta antes tiene que haber un titular")
+            return False
                 
         return True
     
@@ -26,16 +25,16 @@ class Banco:
         return True
     
     def ingresar(self, dinero):
-        if (self.comprobarTitular()):
-            if (self.comprobarNegativo()):
+        if (self.__comprobarTitular()) and dinero > 0:
                 self.__cantidad = self.__cantidad + dinero
+     
+    def __siRetirar(self, dinero):
+        return (self.__comprobarTitular() and self.comprobarNegativo() and self.__cantidad > dinero)
         
     def retirar(self, dinero):
-        if (self.comprobarTitular()):
-            if (self.comprobarNegativo()):
-                if self.__cantidad > dinero:
-                    self.__cantidad = self.__cantidad - dinero
-            print("No se puede retirar más saldo del que ya tienes")
+        if (self.__siRetirar(dinero)):
+            self.__cantidad = self.__cantidad - dinero
+        print("No se puede retirar más saldo del que ya tienes")
       
     @property
     def getTitular(self):
@@ -51,7 +50,7 @@ class Banco:
         
     @getCantidad.setter
     def setCantidad(self, cantidad):
-        if (self.comprobarTitular()):
+        if (self.__comprobarTitular()):
             if cantidad > 0:
                 self.__cantidad = cantidad
             print("No se puede retirar más saldo del que ya tienes")
@@ -64,12 +63,12 @@ c = Banco()
 
 print(c)
 
-#c.setCantidad = 50
-#print(c.getCantidad)
-#c.setTitular = "David"
-#c.setCantidad = 50
-#print(c.getCantidad)
-
+c.ingresar(50)
+print(c.getCantidad)
+c.setTitular = "David"
+c.ingresar(50)
+print(c.getCantidad)
+'''
 c.ingresar(50)
 print(c.getCantidad)
 c.setTitular = "Dario"
@@ -81,3 +80,4 @@ print(c.getCantidad)
 
 c.retirar(25)
 print(c)
+'''
