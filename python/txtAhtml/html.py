@@ -1,17 +1,17 @@
 def pasarContenido():
     for i in html.readlines():
-        match (i):
-            case "nombre en h2":
-               html.writelines("nombre en h2", fichero.readlines[0])
+        match ([i]):
+            case 7:
+               html.write(fichero.readlines()[0])
             
-            case  "fecha de nacimiento":
-               html.writelines("fecha de nacimiento", fichero.readlines[2])
+            case  10:
+               html.write(fichero.readlines()[2])
                 
-            case "numero":
-               html.writelines("numero", fichero.readlines[1])
+            case 14:
+               html.write(fichero.readlines()[1])
                 
-            case "calle":
-               html.writelines("calle", fichero.readlines[3])
+            case 18:
+               html.write(fichero.readlines()[3])
 
 def crearHTML():
     html.write("<!DOCTYPE html>\n") #0
@@ -40,19 +40,23 @@ def crearHTML():
 def main():
     global html
     global fichero
-
     
     fichero = open("./ejemplo.txt", "r+")
     
     html = open("./cv.html", "w+")
             
-    
-        
-    
     if html.read() == "":
         crearHTML()
-
+    
     pasarContenido()
+    html.close()
+    html = open("./cv.html", "r")
+    
+    
+    print(html.read())
+    
+    fichero.close()
+    html.close()
         
 if __name__ == "__main__":
     main()

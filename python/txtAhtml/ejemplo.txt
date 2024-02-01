@@ -1,4 +1,4 @@
-<h2>David Casado Rodríguez</h2Z
+<h2>David Casado Rodriguez</h2>
 <p>Telefono: 666 666 666</p>
 <p>30/05/2004</p>
 <p>C/ De las Hesperides Nº7</p>
