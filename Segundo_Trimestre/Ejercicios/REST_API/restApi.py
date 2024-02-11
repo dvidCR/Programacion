@@ -42,7 +42,6 @@ u.characteristics()
 
 for user in Users.api():
     u.__init__(user["userId"], user["id"], user["title"], user["completed"])
-    '''u = Users()'''
     u.insert()
     
 u.start()
