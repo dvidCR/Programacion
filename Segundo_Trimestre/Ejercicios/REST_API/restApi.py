@@ -16,7 +16,6 @@ class Users:
         self.window.title("Adding a Vertical Scrollbar to a Treeview Widget")
 
         self.tree = ttk.Treeview(self.window, columns=('User ID', 'Proyect ID', 'Title', 'Status'))
-        self.head()
 
     def api():
         response = requests.get("https://jsonplaceholder.typicode.com/todos/")
@@ -39,6 +38,7 @@ class Users:
 
 u = Users(None, None, None, None)
 u.characteristics()
+u.head()
 
 for user in Users.api():
     u.__init__(user["userId"], user["id"], user["title"], user["completed"])
