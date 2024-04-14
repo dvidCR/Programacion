@@ -161,6 +161,10 @@ pd.plotting.scatter_matrix(ana_df,figsize=(20,20),alpha=0.5)
 ### Prueba esta visualización. ¿Cuál es mejor? ¿ Por qué?
 
 ```python
+# A partir de aqui no e sido capaz de continuar ya que me da errores de que la sección de tabla no existe
+```
+
+```python
 #better visualization
 import seaborn as sns
 sns.pairplot(ana_df)
