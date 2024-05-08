@@ -18,13 +18,13 @@ class db:
         cursor = self.mibbdd.cursor()
         if self.comprobarRepetidos(nombre, apellidos):
             sql = f"insert into usuarios(nombre, edad, apellidos) values ('{nombre}', {edad}, '{apellidos}')"
-        print("Ejecutando el insert")
-        print(sql)
-        try:
-            cursor.execute(sql)
-            self.mibbdd.commit()
-        except MySQLdb.Error as e:
-            print(f"Error al instertar {e}")
+            print("Ejecutando el insert")
+            print(sql)
+            try:
+                cursor.execute(sql)
+                self.mibbdd.commit()
+            except MySQLdb.Error as e:
+                print(f"Error al instertar {e}")
             
     def consultarUsuario(self):
         cursor = self.mibbdd.cursor()
@@ -58,29 +58,13 @@ class db:
             
     def comprobarRepetidos(self, nombre, apellidos):
         cursor = self.mibbdd.cursor()
-        n = f"select nombre from usuarios where nombre = '{nombre}'"
-        a = f"select apellidos from usuarios where apellidos = '{apellidos}'"
-        self.nombre = cursor.execute(n)
-        registro = cursor.fetchall()
-        cursor.rowcount
-        
-        for i in registro:
-            if i[1] == nombre:
-                nombreR = True
-        nombreR = False
-        
-        self.apellidos = cursor.execute(a)
-        registro = cursor.fetchall()
-        cursor.rowcount
-        
-        for i in registro:
-            if i[3] == apellidos:
-                apellidosR = True
-        apellidosR = False
-        
-        if nombreR == True and apellidosR == True:
+        sql = f"select nombre from usuarios where nombre = '{nombre}' and apellidos = '{apellidos}'"  
+        try:
+            cursor.execute(sql, (nombre, apellidos))
+            return True
+        except MySQLdb.Error as e:
+            print(f"Nombre y apellidos duplicados: {e}")
             return False
-        return True
         
 if __name__ == "__main__":
     mi_base_datos = db()
