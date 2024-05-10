@@ -51,18 +51,25 @@ class BBDD:
             return False, f"Nombre, apellidos o DNI mal introducidos"
     
     def updateBBDD(self, estado, nombre, apellidos, dni, cambio):
-        sql = f"update empleados set {estado} = '{cambio}' where nombre = '{nombre}' and apellidos = '{apellidos}' and dni = '{dni}'"  
-        try:
-            self.cursor.execute(sql)
-            self.mibbdd.commit()
-            return True, ""
-        except MySQLdb.Error as e:
-            return False, f"Nombre, apellidos o DNI mal introducidos: {e}"
+        if self.comprobarRepetidos(nombre, apellidos, dni):
+            sql = f"update empleados set {estado} = '{cambio}' where nombre = '{nombre}' and apellidos = '{apellidos}' and dni = '{dni}'"  
+            try:
+                self.cursor.execute(sql)
+                self.mibbdd.commit()
+                return True, ""
+            except MySQLdb.Error as e:
+                return False, f"Error a la hora de actualizar el {estado}: {e}"
+        else:
+            return False, f"Nombre, apellidos o DNI mal introducidos"
     
     def comprobarRepetidos(self, nombre, apellidos, dni):
         sql = f"select nombre, apellidos, dni from empleados where nombre = '{nombre}' and apellidos = '{apellidos}' and dni = '{dni}'"  
         try:
             self.cursor.execute(sql)
-            return True
+            registros = self.cursor.fetchall()
+            if registros:
+                return True
+            else:
+                return False
         except:
-            return False
+            return True
