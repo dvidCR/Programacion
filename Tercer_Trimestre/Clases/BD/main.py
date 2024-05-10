@@ -58,7 +58,7 @@ class db:
             
     def comprobarRepetidos(self, nombre, apellidos):
         cursor = self.mibbdd.cursor()
-        sql = f"select nombre from usuarios where nombre = '{nombre}' and apellidos = '{apellidos}'"  
+        sql = f"select nombre, apellidos from usuarios where nombre = '{nombre}' and apellidos = '{apellidos}'"  
         try:
             cursor.execute(sql, (nombre, apellidos))
             return True
