@@ -1,6 +1,11 @@
-import PySimpleGUI as sg
 import sys
 from bbdd import BBDD
+import subprocess
+try:
+    import PySimpleGUI as sg
+except:
+    subprocess.check_call(["pip", "install", "PySimpleGUI==4.27.4"])
+    import PySimpleGUI as sg
 
 class UI(BBDD):
     
